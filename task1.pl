@@ -23,6 +23,6 @@ my_permute(X,[H|T1]) :-
   my_permute(T,T1).
 
 my_sublist(S,R) :-
-  my_append(R,_,S),
-  my_append(_,R,L).
+  my_append(X,_,S),
+  my_append(_,R,X).
 
