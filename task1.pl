@@ -28,3 +28,12 @@ my_sublist(S,R) :-
 
 %Замена всех элементов списка с указанным значением на другое значение
 
+replace(_, _, [], []). 
+
+replace(Old, New, [Old|T], [New|T1]) :- 
+    replace(Old, New, T, T1).
+
+replace(Old, New, [H|T], [H|T1]) :- 
+    H \= Old,
+    replace(Old, New, T, T1).
+
