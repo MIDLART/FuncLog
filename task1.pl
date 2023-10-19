@@ -37,3 +37,13 @@ replace(Old, New, [H|T], [H|T1]) :-
     H \= Old,
     replace(Old, New, T, T1).
 
+
+%Разделение списка на два по порядковому принципу (первый-второй)
+
+split_list([], [], []).
+split_list([X], [X], []).
+split_list([X, Y|T], [X|T1], [Y|T2]) :- 
+    split_list(T, T1, T2).
+
+
+
