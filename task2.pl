@@ -25,3 +25,14 @@ passed(Student):-
     not(member(grade(_,2),Marks)).
 
 %Для каждого предмета, найти количество не сдавших студентов
+
+list([grade(Sub,2)|_],Sub).
+list([_|T],Sub):-
+    list(T,Sub).
+
+not_passed_subject(Subject,Count):- 
+    subject(Abb,Subject),
+    findall(Marks,(student(_,_,Marks),list(Marks,Abb)),All_marks),
+    length(All_marks,Count).
+
+%Для каждой группы, найти студента (студентов) с максимальным средним баллом
