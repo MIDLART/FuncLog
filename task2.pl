@@ -36,3 +36,8 @@ not_passed_subject(Subject,Count):-
     length(All_marks,Count).
 
 %Для каждой группы, найти студента (студентов) с максимальным средним баллом
+
+max_average_students(Group, Students) :-
+    findall(Average-Student, (student(Group, Student, _), average_mark(Student, Average)), StudentAverages),
+    max_member(MaxAverage-_, StudentAverages),
+    findall(Student, member(MaxAverage-Student, StudentAverages), Students).
