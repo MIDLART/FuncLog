@@ -57,5 +57,13 @@ split_list([X], [X], []).
 split_list([X, Y|T], [X|T1], [Y|T2]) :- 
     split_list(T, T1, T2).
 
+%Стандартные предикаты
 
+split_list([], [], []).
+split_list([X], [X], []).
+split_list([X, Y|[]], [X], [Y]).
+split_list([X, Y|T], L1, L2) :- 
+    split_list(T, T1, T2),
+    append([X], T1, L1),
+    append([Y], T2, L2).
 
