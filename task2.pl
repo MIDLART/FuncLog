@@ -3,4 +3,4 @@
 % The line below imports the data
 :- ['three.pl'].
 
-group(X,L) :- findall(Z,student(X,Z),L).
+%Для каждого студента, найти средний балл, и сдал ли он экзамены или нет
