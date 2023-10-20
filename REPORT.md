@@ -26,20 +26,39 @@
 
 ## Задание 1.1: Предикат обработки списка
 
-`mypred(X,Y)` - что делает предикат
+`replace(Old, New, List, Res)` - Замена всех элементов списка с указанным значением на другое значение.
 
 Примеры использования:
 ```prolog
-?- mypred([1,2,3],X).
-X=4.
-?- mypred(X,[4]).
-X=[1,2,3].
+?- replace(2, 5, [1, 2, 3, 2, 4, 2], X).
+X = [1, 5, 3, 5, 4, 5]
+false
 ```
 
 Реализация:
 ```prolog
-mypred([],[]).
-...
+replace(_, _, [], []). 
+
+replace(Old, New, [Old|T], [New|T1]) :- 
+    replace(Old, New, T, T1).
+
+replace(Old, New, [H|T], [H|T1]) :- 
+    H \= Old,
+    replace(Old, New, T, T1).
+```
+
+Реализация на стандартных предикатах:
+```prolog
+replace(_, _, [], []). 
+
+replace(Old, New, [Old|T], Y) :-  
+    replace(Old, New, T, T1),    
+    append([New], T1, Y).
+ 
+replace(Old, New, [H|T], Y) :-     
+    H \= Old,
+    replace(Old, New, T, T1),   
+    append([H], T1, Y).
 ```
 
 Опишите своими словами принцип работы предиката обработки списка.
