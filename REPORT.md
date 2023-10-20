@@ -196,11 +196,66 @@ passed(Student):-
 ```
 Предикат ищет в списке оценок 2, если 2 не обнаржено, то студент сдал экзамены.
 
+
+`not_passed_subject(Subject,Count)` - Для каждого предмета, найти количество не сдавших студентов
+
+Примеры использования:
+```prolog
+?- not_passed_subject('Математический анализ',Count)
+Count = 3
+?- not_passed_subject(A,B)
+A = 'Логическое программирование',
+B = 0
+A = 'Математический анализ',
+B = 3
+A = 'Функциональное программирование',
+B = 3
+A = 'Информатика',
+B = 3
+A = 'Английский язык',
+B = 2
+A = 'Психология',
+B = 3
+```
+
+Реализация:
+```prolog
+list([grade(Sub,2)|_],Sub).
+list([_|T],Sub):-
+    list(T,Sub).
+
+not_passed_subject(Subject,Count):- 
+    subject(Abb,Subject),
+    findall(Marks,(student(_,_,Marks),list(Marks,Abb)),All_marks),
+    length(All_marks,Count).
+```
+
+Предикат выделяет аббревиатуру предмета, составлет список двоек для этого предмета и вычисляет длинну этого списка.
+
+`max_average_students(Group, Students)` - Для каждой группы, найти студента (студентов) с максимальным средним баллом
+
+Примеры использования:
+```prolog
+?- max_average_students(101, Students)
+Students = ['Безумников', 'Густобуквенникова']
+?- max_average_students(Group, Students)
+Students = ['Фулл', 'Безумников', 'Густобуквенникова', 'Азурин', 'Вебсервисов']
+```
+
+Реализация:
+```prolog
+max_average_students(Group, Students) :-
+    findall(Average-Student, (student(Group, Student, _), average_mark(Student, Average)), StudentAverages),
+    max_member(MaxAverage-_, StudentAverages),
+    findall(Student, member(MaxAverage-Student, StudentAverages), Students).
+```
+
+Предикат в списке всех средних баллов в группе находит максимальный. Затем находит всех студентов группы с таким средним баллом.
+
 ## Выводы
 
 Сформулируйте *содержательные* выводы по лабораторной работе. Чему она вас научила? Над чем заставила задуматься? Помните, что несодержательные выводы -
 самая частая причина снижения оценки за лабораторную.
-
 
 
 
