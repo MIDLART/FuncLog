@@ -37,6 +37,18 @@ replace(Old, New, [H|T], [H|T1]) :-
     H \= Old,
     replace(Old, New, T, T1).
 
+%Стандартные предикаты
+replace(_, _, [], []). 
+
+replace(Old, New, [Old|T], Y) :-  
+    replace(Old, New, T, T1),    
+    append([New], T1, Y).
+ 
+replace(Old, New, [H|T], Y) :-     
+    H \= Old,
+    replace(Old, New, T, T1),   
+    append([H], T1, Y).
+
 
 %Разделение списка на два по порядковому принципу (первый-второй)
 
