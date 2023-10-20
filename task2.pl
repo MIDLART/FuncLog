@@ -23,3 +23,5 @@ average_mark(Student, Average):-
 passed(Student):-
     student(_,Student,Marks),
     not(member(grade(_,2),Marks)).
+
+%Для каждого предмета, найти количество не сдавших студентов
